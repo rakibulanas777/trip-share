@@ -1,6 +1,8 @@
 import hashlib
 
 from brta import BRTA
+from ride_manager import uber
+from vehicle import Car, Bike, Cng
 license_authorithy = BRTA()
 
 
@@ -68,12 +70,31 @@ class Driver(User):
             self.license = result
             self.valid_driver = True
 
+    def register_a_vehicle(self, vehicle_type, license_plate, rate):
+        if self.valid_driver is True:
+            new_vehicle = None
+            if (vehicle_type == 'car'):
+                new_vehicle = Car(
+                    vehicle_type, license_plate, rate, self.email)
+                uber.add_a_vehicle(new_vehicle)
+            elif (vehicle_type == 'bike'):
+                new_vehicle = Bike(
+                    vehicle_type, license_plate, rate, self.email)
+                uber.add_a_vehicle(new_vehicle)
+            else:
+                new_vehicle = Cng(
+                    vehicle_type, license_plate, rate, self.email)
+                uber.add_a_vehicle(new_vehicle)
+            pass
+        else:
+            print("You are not a valid driver")
+
     def start_a_trip(self, destination, fare):
         self.earning += fare
         self.location = destination
 
 
-hero = User("Hero ALom", "anas.90@gail.com", "AsdfikLm@@129")
+hero = User("Hero ALom", "anas.90@gmail.com", "AsdfikLm@@129")
 kuber = Driver('anas', 'anss101@gmail.com', 'AsdfikLm@@129', 54, 7787)
 
 result = license_authorithy.validate_license(kuber.email, kuber.license)
