@@ -1,5 +1,5 @@
 import hashlib
-
+from random import random, randint
 from brta import BRTA
 from ride_manager import uber
 from vehicle import Car, Bike, Cng
@@ -75,16 +75,16 @@ class Driver(User):
             new_vehicle = None
             if (vehicle_type == 'car'):
                 new_vehicle = Car(
-                    vehicle_type, license_plate, rate, self.email)
-                uber.add_a_vehicle(new_vehicle)
+                    vehicle_type, license_plate, rate, self)
+                uber.add_a_vehicle(vehicle_type, new_vehicle)
             elif (vehicle_type == 'bike'):
                 new_vehicle = Bike(
-                    vehicle_type, license_plate, rate, self.email)
-                uber.add_a_vehicle(new_vehicle)
+                    vehicle_type, license_plate, rate, self)
+                uber.add_a_vehicle(vehicle_type, new_vehicle)
             else:
                 new_vehicle = Cng(
-                    vehicle_type, license_plate, rate, self.email)
-                uber.add_a_vehicle(new_vehicle)
+                    vehicle_type, license_plate, rate, self)
+                uber.add_a_vehicle(vehicle_type, new_vehicle)
             pass
         else:
             print("You are not a valid driver")
@@ -94,9 +94,4 @@ class Driver(User):
         self.location = destination
 
 
-hero = User("Hero ALom", "anas.90@gmail.com", "AsdfikLm@@129")
-kuber = Driver('anas', 'anss101@gmail.com', 'AsdfikLm@@129', 54, 7787)
-
-result = license_authorithy.validate_license(kuber.email, kuber.license)
-User.login('anas.90@gmail.com', 'AsdfikLm@@129')
-print(result)
+rider1 = Rider("r1", "raone@gmail.com", 'pass', randint(0, 100), 5000)
